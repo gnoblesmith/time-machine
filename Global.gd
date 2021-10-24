@@ -4,8 +4,9 @@ extends Node
 #######################################
 enum MouseState {
 	NOTHING,
-	MAKE_TIMER,
-	MAKE_RECEIVER,
+	MAKE_NEURON,
+	MAKE_SOURCE,
+	MAKE_SINK,
 	MAKE_CONNECTOR_A,
 	MAKE_CONNECTOR_B
 }

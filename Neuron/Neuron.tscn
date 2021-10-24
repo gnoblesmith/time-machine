@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Transmitter/TimerTransmitter.gd" type="Script" id=3]
+[ext_resource path="res://Neuron/Neuron.gd" type="Script" id=1]
 
-[node name="TransmitterRoot" type="Control"]
+[node name="NeuronRoot" type="Control"]
 anchor_left = -0.05
 anchor_top = -0.05
 anchor_right = 0.05
@@ -11,14 +11,10 @@ margin_left = 1.2
 margin_top = -20.0
 margin_right = -1.2
 margin_bottom = 20.0
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.25
-autostart = true
 
 [node name="GentleHighlight" type="Polygon2D" parent="."]
 visible = false
@@ -35,5 +31,3 @@ polygon = PoolVector2Array( -5, -5, -5, 105, 105, 105, 105, -5 )
 position = Vector2( 0.0157547, 0.603149 )
 color = Color( 0.368627, 0.12549, 0.470588, 1 )
 polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0 )
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

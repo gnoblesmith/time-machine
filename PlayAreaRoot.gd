@@ -1,7 +1,6 @@
 extends Control
 
-const TransmitterResource = preload("res://Transmitter/TimerTransmitter.tscn")
-const ReceiverResource = preload("res://Receiver/TimerReceiver.tscn")
+const NeuronResource = preload("res://Neuron/Neuron.tscn")
 
 var global
 
@@ -14,15 +13,24 @@ func _gui_input(event):
 		print("mouse event play area")
 	
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed:
-		if (global.mouse_state == global.MouseState.MAKE_TIMER):
-			var newTransmitter = TransmitterResource.instance()
-			newTransmitter.set_position(event.position)
+		if (global.mouse_state == global.MouseState.MAKE_SOURCE):
+			var newSource = NeuronResource.instance()
+			newSource.setAsSource(1)
+			newSource.set_position(event.position)
 			global.setMouseState(global.MouseState.NOTHING)
 			global.promoteGhostPiece()
 			
-		if (global.mouse_state == global.MouseState.MAKE_RECEIVER):
-			var newReceiver = ReceiverResource.instance()
-			newReceiver.set_position(event.position)
+		if (global.mouse_state == global.MouseState.MAKE_SINK):
+			var newSink = NeuronResource.instance()
+			newSink.setAsSink()
+			newSink.set_position(event.position)
+			global.setMouseState(global.MouseState.NOTHING)
+			global.promoteGhostPiece()
+			
+		if (global.mouse_state == global.MouseState.MAKE_NEURON):
+			var newSink = NeuronResource.instance()
+			newSink.setAsNeuron()
+			newSink.set_position(event.position)
 			global.setMouseState(global.MouseState.NOTHING)
 			global.promoteGhostPiece()
 			

@@ -2,25 +2,34 @@ extends Control
 
 var global
 const ConnectorResource = preload("res://Connector/Connector.tscn")
+signal pulse(strength)
 
-
-var sponged = 0
+var strength = 3
 
 func _ready():
 	global = get_node("/root/Global")
 	self.connect("mouse_entered", self, "onMouseEntered")
 	self.connect("mouse_exited", self, "onMouseExited")
 
-func _process(delta):
-	if (sponged > 0):
-		sponged -= delta
+func setAsNeuron():
+	self.get_node("Main").color = Color.purple
+
+func setAsSink():
+	self.get_node("Main").color = Color.blue
+
+func setAsSource(time):
+	self.get_node("Main").color = Color.red
 	
-	if (sponged <= 0):
-		sponged = 0
-		self.get_node("Label").text = "Empty"
-	else:
-		self.get_node("Label").text = str(sponged)
-	
+	var timer = Timer.new()
+	timer.autostart = true
+	timer.one_shot = false
+	timer.wait_time = time
+	timer.connect("timeout", self, "_on_Timer_timeout")
+	self.add_child(timer)
+
+func _on_Timer_timeout():
+	print("pulsing")
+	emit_signal("pulse", strength)
 
 func _gui_input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and not event.pressed:
@@ -46,21 +55,19 @@ func _gui_input(event):
 			global.setFocus(self)
 			pass
 			
-func onPulseReceived(strength):
+func onPulseReceived(_strength):
 	print("pulse received")
-	sponged += strength
 	pass;
-
+	
 func setFocus():
 	self.get_node("FocusHighlight").visible = true
-	pass
 	
 func loseFocus():
 	self.get_node("FocusHighlight").visible = false
-	pass
 
 func onMouseEntered():
 	self.get_node("GentleHighlight").visible = true
 
 func onMouseExited():
 	self.get_node("GentleHighlight").visible = false
+	

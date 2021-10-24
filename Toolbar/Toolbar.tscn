@@ -23,28 +23,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MakeTimer" type="Button" parent="."]
+[node name="MakeSource" type="Button" parent="."]
 margin_left = 19.0819
 margin_top = 72.96
 margin_right = 134.082
 margin_bottom = 92.96
 mouse_default_cursor_shape = 2
-text = "Make Timer"
+text = "Make Source"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MakeReceiver" type="Button" parent="."]
+[node name="MakeSink" type="Button" parent="."]
 margin_left = 22.4492
 margin_top = 124.593
 margin_right = 137.449
 margin_bottom = 144.593
 mouse_default_cursor_shape = 2
-text = "Make Receiver"
+text = "Make Sink"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MakeNeuron" type="Button" parent="."]
+margin_left = 16.837
+margin_top = 173.982
+margin_right = 131.837
+margin_bottom = 193.982
+mouse_default_cursor_shape = 2
+text = "Make Neuron"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="pressed" from="MakeConnector" to="." method="_on_MakeConnector_pressed"]
-[connection signal="pressed" from="MakeTimer" to="." method="_on_MakeTimer_pressed"]
-[connection signal="pressed" from="MakeReceiver" to="." method="_on_MakeReceiver_pressed"]
+[connection signal="pressed" from="MakeSource" to="." method="_on_MakeSource_pressed"]
+[connection signal="pressed" from="MakeSink" to="." method="_on_MakeSink_pressed"]
+[connection signal="pressed" from="MakeNeuron" to="." method="_on_MakeNeuron_pressed"]
