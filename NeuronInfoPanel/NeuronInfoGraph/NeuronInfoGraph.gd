@@ -22,9 +22,9 @@ func _ready():
 	
 func update():
 	if (global.focused_piece != null 
-	&& global.focused_piece.history != null
-	&& global.focused_piece.history.size() > 0):
-		input_points = global.focused_piece.history
+	&& global.focused_piece.store_history != null
+	&& global.focused_piece.store_history.size() > 0):
+		input_points = global.focused_piece.store_history
 		
 		findMinsAndMaxes()
 		createScaledLine()

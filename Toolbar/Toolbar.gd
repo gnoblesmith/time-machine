@@ -41,3 +41,9 @@ func _on_MakeNeuron_pressed():
 func setMouseState(new_state):
 	global.setMouseState(new_state)
 
+func _on_MakeThreshold_pressed():
+	global.destroyGhostPiece()
+	var threshold = NeuronResource.instance()
+	threshold.setAsThreshold()
+	global.setupGhostPiece(threshold)
+	setMouseState(global.MouseState.MAKE_THRESHOLD)

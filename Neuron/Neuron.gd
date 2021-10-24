@@ -4,31 +4,56 @@ var global
 const ConnectorResource = preload("res://Connector/Connector.tscn")
 signal pulse(strength)
 
-var strength: float = 3
+enum NeuronType {
+	NEURON,
+	SINK,
+	SOURCE,
+	THRESHOLD
+}
+var type
+
+var strength: float = 1
 var store: float = 0.0
-var history
-var drainage_factor: float = 3.0 # per second
+var store_history
+var store_drainage_factor: float = 0.0 # per second
+
+var relay_threshold: float = 6.0
+
+var pulse_history
 
 func _ready():
-	history = []
+	type = NeuronType.NEURON
+	store_history = []
+	pulse_history = []
 	global = get_node("/root/Global")
 	self.connect("mouse_entered", self, "onMouseEntered")
 	self.connect("mouse_exited", self, "onMouseExited")
 
 func _process(delta):
 	if (store > 0):
-		store -= delta*drainage_factor
+		store -= delta*store_drainage_factor
 		if (store < 0): store = 0
 		
-	history.append(Vector2(OS.get_ticks_msec(), store))
+		if (store > relay_threshold):
+			emit_signal("pulse", strength)
+			store -= relay_threshold
+		
+	store_history.append(Vector2(OS.get_ticks_msec(), store))
 
 func setAsNeuron():
+	type = NeuronType.NEURON
 	self.get_node("Main").color = Color.purple
+	
+func setAsThreshold():
+	type = NeuronType.THRESHOLD
+	self.get_node("Main").color = Color.green
 
 func setAsSink():
+	type = NeuronType.SINK
 	self.get_node("Main").color = Color.blue
 
 func setAsSource(time):
+	type = NeuronType.SOURCE
 	self.get_node("Main").color = Color.red
 	
 	var timer = Timer.new()
