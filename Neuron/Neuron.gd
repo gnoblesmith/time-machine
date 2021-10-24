@@ -4,12 +4,23 @@ var global
 const ConnectorResource = preload("res://Connector/Connector.tscn")
 signal pulse(strength)
 
-var strength = 3
+var strength: float = 3
+var store: float = 0.0
+var history
+var drainage_factor: float = 3.0 # per second
 
 func _ready():
+	history = []
 	global = get_node("/root/Global")
 	self.connect("mouse_entered", self, "onMouseEntered")
 	self.connect("mouse_exited", self, "onMouseExited")
+
+func _process(delta):
+	if (store > 0):
+		store -= delta*drainage_factor
+		if (store < 0): store = 0
+		
+	history.append(Vector2(OS.get_ticks_msec(), store))
 
 func setAsNeuron():
 	self.get_node("Main").color = Color.purple
@@ -56,7 +67,7 @@ func _gui_input(event):
 			pass
 			
 func onPulseReceived(_strength):
-	print("pulse received")
+	store += _strength
 	pass;
 	
 func setFocus():

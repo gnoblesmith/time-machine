@@ -36,7 +36,3 @@ func _gui_input(event):
 			
 		if (global.mouse_state == global.MouseState.MAKE_CONNECTOR_A):
 			pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
