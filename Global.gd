@@ -25,6 +25,10 @@ func setFocus(instance):
 	if (focused_piece != null):
 		focused_piece.loseFocus()
 	focused_piece = instance
+	
+func clearFocus():
+	if (focused_piece != null):
+		focused_piece.loseFocus()
 
 #######################################
 var ghost_piece: Object

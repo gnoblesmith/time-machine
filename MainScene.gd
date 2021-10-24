@@ -11,3 +11,4 @@ func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and not event.pressed:
 		global.setMouseState(global.MouseState.NOTHING)
 		global.destroyGhostPiece()
+		global.clearFocus()
