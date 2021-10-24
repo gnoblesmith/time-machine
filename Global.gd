@@ -19,6 +19,7 @@ func setMouseState(state):
 #######################################
 
 var focused_piece: Object
+var info_panel: Object
 
 func setFocus(instance):
 	instance.setFocus()
@@ -26,9 +27,19 @@ func setFocus(instance):
 		focused_piece.loseFocus()
 	focused_piece = instance
 	
+	if (info_panel != null):
+		info_panel.visible = true
+	
 func clearFocus():
 	if (focused_piece != null):
 		focused_piece.loseFocus()
+	if (info_panel != null):
+		info_panel.visible = false
+		
+func setInfoPanel(instance):
+	print("info panel set")
+	info_panel = instance
+	
 
 #######################################
 var ghost_piece: Object
