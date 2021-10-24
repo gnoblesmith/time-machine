@@ -1,5 +1,7 @@
 extends Node
 
+
+#######################################
 enum MouseState {
 	NOTHING,
 	MAKE_TIMER,
@@ -13,9 +15,17 @@ var mouse_state = MouseState.NOTHING
 func setMouseState(state):
 	print("set mouse state to " + str(state))
 	mouse_state = state
+#######################################
 
-var highlighted_piece: Object
+var focused_piece: Object
 
+func setFocus(instance):
+	instance.setFocus()
+	if (focused_piece != null):
+		focused_piece.loseFocus()
+	focused_piece = instance
+
+#######################################
 var ghost_piece: Object
 var ghost_piece_container
 
@@ -51,6 +61,6 @@ func ghostPieceOnMouseMove(position):
 		if (ghost_piece.get_class() == "Line2D"):
 			ghost_piece.set_point_position(1, Vector2(get_viewport().get_mouse_position()))
 
-# Called when the node enters the scene tree for the first time.
+#######################################
 func _ready():
-	pass # Replace with function body.
+	pass

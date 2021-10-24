@@ -3,21 +3,37 @@
 [ext_resource path="res://Transmitter/TimerTransmitter.gd" type="Script" id=3]
 
 [node name="TransmitterRoot" type="Control"]
-anchor_right = 0.097
-anchor_bottom = 0.168
-margin_right = 0.671997
-margin_bottom = -0.800011
+anchor_left = -0.05
+anchor_top = -0.05
+anchor_right = 0.05
+anchor_bottom = 0.05
+margin_left = 1.2
+margin_top = -20.0
+margin_right = -1.2
+margin_bottom = 20.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="GentleHighlight" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( 0.0630188, 2.4126 )
+color = Color( 0.403922, 0.403922, 0.403922, 1 )
+polygon = PoolVector2Array( -5, -5, -5, 105, 105, 105, 105, -5 )
+
+[node name="FocusHighlight" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( 0.0315094, 1.2063 )
+polygon = PoolVector2Array( -5, -5, -5, 105, 105, 105, 105, -5 )
+
+[node name="Main" type="Polygon2D" parent="."]
 position = Vector2( 0.0157547, 0.603149 )
 color = Color( 0.368627, 0.12549, 0.470588, 1 )
 polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0 )
-
-[node name="Timer" type="Timer" parent="."]
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

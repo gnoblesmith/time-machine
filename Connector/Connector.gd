@@ -20,21 +20,23 @@ func setConnectionB(instance):
 	connectionB = instance
 	connectionB.connect("pulse", self, "onPulseB")
 
-func onPulseA():
+func onPulseA(strength):
 	if !connectionA || !connectionB:
 		return
 
 	var newPulse = PulseResource.instance()
 	newPulse.setEndpoints(self.points[0], self.points[1])
+	newPulse.setInitialStrength(strength)
 	newPulse.connect("pulse_arrived", self, "onPulseArrivedAtB")
 	self.add_child(newPulse)
 	
-func onPulseB():
+func onPulseB(strength):
 	if !connectionA || !connectionB:
 		return
 
 	var newPulse = PulseResource.instance()
 	newPulse.setEndpoints(self.points[1], self.points[0])
+	newPulse.setInitialStrength(strength)
 	newPulse.connect("pulse_arrived", self, "onPulseArrivedAtA")
 	self.add_child(newPulse)
 	

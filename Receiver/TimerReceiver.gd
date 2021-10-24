@@ -8,6 +8,8 @@ var sponged = 0
 
 func _ready():
 	global = get_node("/root/Global")
+	self.connect("mouse_entered", self, "onMouseEntered")
+	self.connect("mouse_exited", self, "onMouseExited")
 
 func _process(delta):
 	if (sponged > 0):
@@ -40,7 +42,25 @@ func _gui_input(event):
 			global.promoteGhostPiece()
 			global.setMouseState(global.MouseState.NOTHING)
 			
+		elif global.mouse_state == global.MouseState.NOTHING:
+			global.setFocus(self)
+			pass
+			
 func onPulseReceived(strength):
 	print("pulse received")
 	sponged += strength
 	pass;
+
+func setFocus():
+	self.get_node("FocusHighlight").visible = true
+	pass
+	
+func loseFocus():
+	self.get_node("FocusHighlight").visible = false
+	pass
+
+func onMouseEntered():
+	self.get_node("GentleHighlight").visible = true
+
+func onMouseExited():
+	self.get_node("GentleHighlight").visible = false

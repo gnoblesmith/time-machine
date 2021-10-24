@@ -8,7 +8,7 @@ var _end
 var timeTraveled = 0
 var totalTravelTime
 
-var travelSpeed = 50 # ??? units?
+var travelSpeed = 500 # ??? units?
 
 var initialStrength
 var strength
@@ -17,12 +17,14 @@ var defaultWidth
 
 func _ready():
 	timeTraveled = 0
-	initialStrength = 1
-	strength = initialStrength
 	weakeningFactor = 10
 	defaultWidth = 20
 	pass 
 
+func setInitialStrength(_strength):
+	initialStrength = _strength
+	strength = initialStrength
+	
 func setEndpoints(start, end):
 	_start = start
 	_end = end
