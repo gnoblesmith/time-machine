@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Transmitter/TimerTransmitter.gd" type="Script" id=3]
+
+[node name="TransmitterRoot" type="Control"]
+anchor_right = 0.097
+anchor_bottom = 0.168
+margin_right = 0.671997
+margin_bottom = -0.800011
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 0.0157547, 0.603149 )
+color = Color( 0.368627, 0.12549, 0.470588, 1 )
+polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

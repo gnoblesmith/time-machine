@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Receiver/TimerReceiver.gd" type="Script" id=1]
+
+[node name="ReceiverRoot" type="Control"]
+anchor_right = 0.097
+anchor_bottom = 0.167
+margin_right = 0.671997
+margin_bottom = -0.200005
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.760784, 0.286275, 0.117647, 1 )
+polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 27.0
+margin_top = 40.0
+margin_right = 67.0
+margin_bottom = 54.0
+text = "Pulses"
+__meta__ = {
+"_edit_use_anchors_": false
+}

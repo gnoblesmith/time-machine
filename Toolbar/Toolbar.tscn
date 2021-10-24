@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Toolbar/Toolbar.gd" type="Script" id=1]
+
+[node name="Toolbar" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0.407843, 0.407843, 0.407843, 1 )
+polygon = PoolVector2Array( 0, 0, 0, 300, 150, 300, 150, 0 )
+
+[node name="MakeConnector" type="Button" parent="."]
+margin_left = 19.0819
+margin_top = 16.8369
+margin_right = 134.082
+margin_bottom = 36.8369
+mouse_default_cursor_shape = 2
+text = "Make Connector"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MakeTimer" type="Button" parent="."]
+margin_left = 19.0819
+margin_top = 72.96
+margin_right = 134.082
+margin_bottom = 92.96
+mouse_default_cursor_shape = 2
+text = "Make Timer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MakeReceiver" type="Button" parent="."]
+margin_left = 22.4492
+margin_top = 124.593
+margin_right = 137.449
+margin_bottom = 144.593
+mouse_default_cursor_shape = 2
+text = "Make Receiver"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="MakeConnector" to="." method="_on_MakeConnector_pressed"]
+[connection signal="pressed" from="MakeTimer" to="." method="_on_MakeTimer_pressed"]
+[connection signal="pressed" from="MakeReceiver" to="." method="_on_MakeReceiver_pressed"]
