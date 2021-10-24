@@ -39,7 +39,6 @@ func setAsSource(time):
 	self.add_child(timer)
 
 func _on_Timer_timeout():
-	print("pulsing")
 	emit_signal("pulse", strength)
 
 func _gui_input(event):
@@ -63,6 +62,7 @@ func _gui_input(event):
 			global.setMouseState(global.MouseState.NOTHING)
 			
 		elif global.mouse_state == global.MouseState.NOTHING:
+			print("hello")
 			global.setFocus(self)
 			pass
 			
@@ -71,9 +71,11 @@ func onPulseReceived(_strength):
 	pass;
 	
 func setFocus():
+	print("setFocus")
 	self.get_node("FocusHighlight").visible = true
 	
 func loseFocus():
+	print("loseFocus")
 	self.get_node("FocusHighlight").visible = false
 
 func onMouseEntered():

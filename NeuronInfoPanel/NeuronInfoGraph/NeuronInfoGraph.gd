@@ -57,6 +57,5 @@ func createScaledLine():
 		)
 		points.append(newPoint)
 
-
 func _on_Timer_timeout():
 	update()

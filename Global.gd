@@ -22,9 +22,10 @@ var focused_piece: Object
 var info_panel: Object
 
 func setFocus(instance):
-	instance.setFocus()
 	if (focused_piece != null):
 		focused_piece.loseFocus()
+		
+	instance.setFocus()
 	focused_piece = instance
 	
 	if (info_panel != null):
@@ -37,7 +38,6 @@ func clearFocus():
 		info_panel.visible = false
 		
 func setInfoPanel(instance):
-	print("info panel set")
 	info_panel = instance
 	
 
