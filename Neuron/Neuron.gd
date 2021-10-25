@@ -17,6 +17,8 @@ var store: float = 0.0
 var store_history
 var store_drainage_factor: float = 0.0 # per second
 
+var connected_connectors
+
 var relay_threshold: float = 6.0
 
 var pulse_history
@@ -24,6 +26,7 @@ var pulse_history
 func _ready():
 	store_history = []
 	pulse_history = []
+	connected_connectors = []
 	global = get_node("/root/Global")
 	self.connect("mouse_entered", self, "onMouseEntered")
 	self.connect("mouse_exited", self, "onMouseExited")
@@ -73,20 +76,23 @@ func _gui_input(event):
 			newConnector.beginSetupConnector(get_viewport().get_mouse_position())
 			newConnector.setConnectionA(self)
 			newConnector.connect("pulse_a", self, "onPulseReceived")
+			connected_connectors.append(newConnector)
 			
 			global.setupGhostPiece(newConnector)
 			global.setMouseState(global.MouseState.MAKE_CONNECTOR_B)
 			
 		elif global.mouse_state == global.MouseState.MAKE_CONNECTOR_B:
-			print("here")
+			connected_connectors.append(global.ghost_piece)
 			global.ghost_piece.setConnectionB(self)
 			global.ghost_piece.connect("pulse_b", self, "onPulseReceived")
 			global.promoteGhostPiece()
 			global.setMouseState(global.MouseState.NOTHING)
 			
 		elif global.mouse_state == global.MouseState.DELETE:
+			for connector in connected_connectors:
+				connector.get_parent().remove_child(connector)
+			
 			get_parent().remove_child(self)
-			# todo - handle connectors, etc?
 			global.setMouseState(global.MouseState.NOTHING)
 			pass
 			
