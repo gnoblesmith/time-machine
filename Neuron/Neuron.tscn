@@ -27,6 +27,12 @@ visible = false
 position = Vector2( 0.0315094, 1.2063 )
 polygon = PoolVector2Array( -5, -5, -5, 105, 105, 105, 105, -5 )
 
+[node name="DeleteHighlight" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( 0.126038, 4.8252 )
+color = Color( 0.858824, 0.4, 0.0313726, 1 )
+polygon = PoolVector2Array( -5, -5, -5, 105, 105, 105, 105, -5 )
+
 [node name="Main" type="Polygon2D" parent="."]
 position = Vector2( 0.0157547, 0.603149 )
 color = Color( 0.368627, 0.12549, 0.470588, 1 )

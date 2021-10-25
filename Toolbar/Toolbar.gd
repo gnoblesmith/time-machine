@@ -9,8 +9,7 @@ func _ready():
 	global = get_node("/root/Global")
 
 func _gui_input(event):
-	if event is InputEventMouseButton:
-		print("mouse event toolbar")	
+	pass
 
 func _on_MakeConnector_pressed():
 	global.destroyGhostPiece()
@@ -47,3 +46,8 @@ func _on_MakeThreshold_pressed():
 	threshold.setAsThreshold()
 	global.setupGhostPiece(threshold)
 	setMouseState(global.MouseState.MAKE_THRESHOLD)
+
+func _on_Delete_pressed():
+	global.destroyGhostPiece()
+	setMouseState(global.MouseState.DELETE)
+	pass # Replace with function body.

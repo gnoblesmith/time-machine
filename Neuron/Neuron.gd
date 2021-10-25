@@ -1,7 +1,7 @@
 extends Control
 
 var global
-const ConnectorResource = preload("res://Connector/Connector.tscn")
+const ConnectorResource = preload("res://Connector2/Connector.tscn")
 signal pulse(strength)
 
 enum NeuronType {
@@ -22,7 +22,6 @@ var relay_threshold: float = 6.0
 var pulse_history
 
 func _ready():
-	type = NeuronType.NEURON
 	store_history = []
 	pulse_history = []
 	global = get_node("/root/Global")
@@ -34,7 +33,7 @@ func _process(delta):
 		store -= delta*store_drainage_factor
 		if (store < 0): store = 0
 		
-		if (store > relay_threshold):
+		if (type == NeuronType.THRESHOLD && store > relay_threshold):
 			emit_signal("pulse", strength)
 			store -= relay_threshold
 		
@@ -71,23 +70,27 @@ func _gui_input(event):
 		if global.mouse_state == global.MouseState.MAKE_CONNECTOR_A:
 			var newConnector = ConnectorResource.instance()
 			
-			newConnector.points = [
-				Vector2(get_viewport().get_mouse_position().x, get_viewport().get_mouse_position().y),
-				Vector2(get_viewport().get_mouse_position().x, get_viewport().get_mouse_position().y)
-			]
+			newConnector.beginSetupConnector(get_viewport().get_mouse_position())
 			newConnector.setConnectionA(self)
 			newConnector.connect("pulse_a", self, "onPulseReceived")
+			
 			global.setupGhostPiece(newConnector)
 			global.setMouseState(global.MouseState.MAKE_CONNECTOR_B)
 			
 		elif global.mouse_state == global.MouseState.MAKE_CONNECTOR_B:
+			print("here")
 			global.ghost_piece.setConnectionB(self)
 			global.ghost_piece.connect("pulse_b", self, "onPulseReceived")
 			global.promoteGhostPiece()
 			global.setMouseState(global.MouseState.NOTHING)
 			
+		elif global.mouse_state == global.MouseState.DELETE:
+			get_parent().remove_child(self)
+			# todo - handle connectors, etc?
+			global.setMouseState(global.MouseState.NOTHING)
+			pass
+			
 		elif global.mouse_state == global.MouseState.NOTHING:
-			print("hello")
 			global.setFocus(self)
 			pass
 			
@@ -96,16 +99,21 @@ func onPulseReceived(_strength):
 	pass;
 	
 func setFocus():
-	print("setFocus")
 	self.get_node("FocusHighlight").visible = true
 	
 func loseFocus():
-	print("loseFocus")
 	self.get_node("FocusHighlight").visible = false
 
 func onMouseEntered():
-	self.get_node("GentleHighlight").visible = true
+	if (global.mouse_state == global.MouseState.DELETE):
+		self.get_node("DeleteHighlight").visible = true
+	else:
+		self.get_node("GentleHighlight").visible = true
 
 func onMouseExited():
+	self.get_node("DeleteHighlight").visible = false
 	self.get_node("GentleHighlight").visible = false
+	
+func onMoveDuringGhostState(position):
+	self.set_position(position)
 	

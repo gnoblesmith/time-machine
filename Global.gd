@@ -1,9 +1,9 @@
 extends Node
 
-
 #######################################
 enum MouseState {
 	NOTHING,
+	DELETE,
 	MAKE_NEURON,
 	MAKE_SOURCE,
 	MAKE_SINK,
@@ -73,10 +73,7 @@ func destroyGhostPiece():
 	
 func ghostPieceOnMouseMove(position):
 	if is_instance_valid(ghost_piece) && ghost_piece != null:
-		if (ghost_piece.get_class() == "Control"):
-			ghost_piece.set_position(position)
-		if (ghost_piece.get_class() == "Line2D"):
-			ghost_piece.set_point_position(1, Vector2(get_viewport().get_mouse_position()))
+		ghost_piece.onMoveDuringGhostState(position)
 
 #######################################
 func _ready():

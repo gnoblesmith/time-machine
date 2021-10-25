@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Connector/Connector.gd" type="Script" id=1]
-
-[node name="Node2D" type="Line2D"]
-points = PoolVector2Array( 0, 0, 400, 400 )
-width = 5.0
-default_color = Color( 1, 1, 1, 1 )
-script = ExtResource( 1 )
